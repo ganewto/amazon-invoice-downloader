@@ -1,0 +1,6 @@
+{
+  "menuItemAmazonInvoices": {
+    "message": "Download Invoices",
+    "description": "Finds all links to Amazon invoices on the current page and automatically downloads them."
+  }
+}

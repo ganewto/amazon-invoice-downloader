@@ -1,0 +1,24 @@
+{
+
+  "manifest_version": 2,
+  "name": "Amazon Invoice Downloader",
+  "description": "Automates downloading of Amazon invoices.",
+  "version": "1.0",
+  "default_locale": "en",
+  "applications": {
+    "gecko": {
+      "strict_min_version": "56.0a1"
+    }
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+  
+  "permissions": [
+    "menus",
+	"downloads",
+    "activeTab"
+  ]
+  
+}
