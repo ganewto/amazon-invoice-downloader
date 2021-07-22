@@ -10,5 +10,5 @@ your current page and download them.
 
 - Digital invoice downloads
 
-- Downloads from other pages (subscriptions, etc0 supported
+- Downloads from other pages (subscriptions, etc) supported
 
