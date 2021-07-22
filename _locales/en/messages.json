@@ -2,5 +2,13 @@
   "menuItemAmazonInvoices": {
     "message": "Download Invoices",
     "description": "Finds all links to Amazon invoices on the current page and automatically downloads them."
+  },
+  "menuItemAmazonInvoicesAdvance": {
+    "message": "Download Invoices Then Advance",
+    "description": "Finds all links to Amazon invoices on the current page and automatically downloads them, advancing to next page."
+  },
+  "menuItemAmazonInvoicesRetreat": {
+    "message": "Download Invoices Then Retreat",
+    "description": "Finds all links to Amazon invoices on the current page and automatically downloads them, retreating to prior page."
   }
 }
