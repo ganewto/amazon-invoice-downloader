@@ -36,10 +36,13 @@ function findAndDownloadInvoices() {
     var count = 1;
     var links = document.links;
     console.log (`Found ${links.length} links on page`)
+    for (var i = 0; i < links.length; i++) {
+	console.log(`${links[i]}  ${links[i].text}`);
+    }
 
     for (var i = 0; i < links.length; i++) {
 	mode = 0;
-	if (links[i].text == "Invoice") { 
+	if (links[i].text == "Invoice" || links[i].text == "View invoice") { 
 	    var l = links[i].parentNode.parentNode.previousSibling.previousSibling;
 	    console.log(`About to download ${links[i]}`);
 	    var downloading = browser.runtime.sendMessage({
@@ -65,11 +68,11 @@ function findAndDownloadInvoices() {
 		var parentText = q.parentNode.textContent;
 		// Double check that there is no invoice (allowing this section to be debugged
 		// separately from the logic above
-		if (parentText.search("Invoice") < 0) {
+		if (parentText.search("Invoice") < 0 && parentText.search("invoice") < 0) {
 		    matched = 2;
 		    var l = q.parentNode.parentNode.previousSibling.previousSibling;
 //		    console.log(`Scanning Parent ${l.children[1].children[0].textContent} for ${links[i].href}`);
-		    console.log(`SECOND: About to download from Order Details${q}`);
+		    console.log(`SECOND: About to download from Order Details ${q.href} ${l.children[1].children[0].textContent}`);
 		    var downloading = browser.runtime.sendMessage({
 			"url": q.href,
 			"alias": l.children[1].children[0].textContent
@@ -83,7 +86,7 @@ function findAndDownloadInvoices() {
 		    if (mode > 0) {
 			console.log(`ERROR: downloading B twice ${q}`)
 		    } else {
-			console.log(`UNIQUE THIRD: downloading  ${q}`)
+			console.log(`UNIQUE THIRD: matched=${matched} downloading  ${q}`)
 		    }
 		    matched = 3
 		    console.log(`THIRD: About to download from orderID= match ${q}`);
@@ -92,6 +95,7 @@ function findAndDownloadInvoices() {
 		    });
 		}
 	    }
+	    console.log("Moving to next link")
 	}
     }
 }
