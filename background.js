@@ -1,7 +1,7 @@
 browser.runtime.onMessage.addListener(downloadLink)
 
 function onStartedDownload(id) {
-  console.log(`Started downloading: ${id}`);
+//  console.log(`Started downloading: ${id}`);
 }
 
 function onFailedDownload(error) {
@@ -20,11 +20,11 @@ function downloadLink(message) {
 	download_name = "amazon-order-" + match[1] + ".html";
     }
     if (alias != null) {
-	console.log(`RECEIVED: ${alias}`)
      	download_name = "amazon-order-" + alias + ".html";
+	console.log(`RECEIVED: ${alias} for ${message.url}`)
     }
     
-    console.log(`Downloading invoice as ${download_name} for ${components}`)
+    console.log(`Downloading invoice as ${download_name} for ${message.url}`)
     browser.downloads.download({
 	url : message.url,
 	filename : download_name

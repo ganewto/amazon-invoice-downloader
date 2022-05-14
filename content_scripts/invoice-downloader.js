@@ -73,8 +73,16 @@ function findAndDownloadInvoices() {
 		    var l = q.parentNode.parentNode.previousSibling.previousSibling;
 //		    console.log(`Scanning Parent ${l.children[1].children[0].textContent} for ${links[i].href}`);
 		    console.log(`SECOND: About to download from Order Details ${q.href} ${l.children[1].children[0].textContent}`);
+
+		    var downloadref = q.href;
+		    if ((q.text.search("View order details") > 0) &&
+			(q.text.search("Order details") <= 0)) {
+			console.log(`We may have a NEW market delivery: https://www.amazon.com/gp/css/summary/print.html?orderID=${l.children[1].children[0].textContent}`);
+			downloadref = `https://www.amazon.com/gp/css/summary/print.html?orderID=${l.children[1].children[0].textContent}`;
+		    }
+		    
 		    var downloading = browser.runtime.sendMessage({
-			"url": q.href,
+			"url": downloadref,
 			"alias": l.children[1].children[0].textContent
 		    });
 		}
@@ -90,15 +98,15 @@ function findAndDownloadInvoices() {
 		    }
 		    matched = 3
 		    console.log(`THIRD: About to download from orderID= match ${q}`);
-		    var downloading = browser.runtime.sendMessage({
-			"url": "https://www.amazon.com/gp/css/summary/print.html?" + r[1]
-		    });
+//		    var downloading = browser.runtime.sendMessage({
+//			"url": "https://www.amazon.com/gp/css/summary/print.html?" + r[1]
+//		    });
 		}
 	    }
-	    console.log("Moving to next link")
 	}
     }
 }
+
 function findAndDownloadInvoicesAndRetreat() {
     const urlParams = new URLSearchParams(document.location.href);
     var startIndex = parseInt(urlParams.get("startIndex"));
@@ -124,6 +132,7 @@ function findAndDownloadInvoicesAndAdvance() {
     startIndex += 10;
     var q = document.location.href;
     var r = searchQueryParam('startIndex', q)
+    console.log(`Got search ${r}`);
     if (r) {
 	q = replaceQueryParam('startIndex', startIndex, q);
     } else
